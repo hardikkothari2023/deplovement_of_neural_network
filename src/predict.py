@@ -1,18 +1,25 @@
+import pandas as pd
 import numpy as np
-import pickle
+from src import trained_models
 from src.config import config
-from src.preprocessing.data_management import load_model
-from train_pipeline import layer_neurons_weighted_sum, layer_neurons_output
-
+import src.preprocessing.preprocessing as pp
+from src.preprocessing.data_management import load_dataset, save_model, load_model
+import pipeline as pl
+import pickle
+from src import trained_models
+from src import train_pipeline
+from train_pipeline import layer_neurons_output
+from train_pipeline import layer_neurons_weighted_sum 
+ 
 def predict(X, theta0, theta):
-    h = [None] * config.NUM_LAYERS
+    h = [None]*config.NUM_LAYERS
     h[0] = X
 
     for l in range(1, config.NUM_LAYERS):
         z = layer_neurons_weighted_sum(h[l-1], theta0[l], theta[l])
         h[l] = layer_neurons_output(z, config.f[l])
 
-    return h[config.NUM_LAYERS - 1]
+    return h[config.NUM_LAYERS-1]
 
 def evaluate_model(X, Y, theta0, theta):
     correct_predictions = 0
