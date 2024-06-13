@@ -1,37 +1,18 @@
-import pandas as pd
 import numpy as np
-from src import trained_models
-from src.config import config
-import src.preprocessing.preprocessing as pp
-from src.preprocessing.data_management import load_dataset, save_model, load_model
-import pipeline as pl
 import pickle
-from src import trained_models
- 
-
-def layer_neurons_weighted_sum(previous_layer_neurons_outputs, current_layer_neurons_biases, current_layer_neurons_weights):
-    return current_layer_neurons_biases + np.matmul(previous_layer_neurons_outputs, current_layer_neurons_weights)
-
-def layer_neurons_output(current_layer_neurons_weighted_sums, current_layer_neurons_activation_function):
-    if current_layer_neurons_activation_function == "linear":
-        return current_layer_neurons_weighted_sums
-    elif current_layer_neurons_activation_function == "sigmoid":
-        return 1/(1 + np.exp(-current_layer_neurons_weighted_sums))
-    elif current_layer_neurons_activation_function == "tanh":
-        return (np.exp(current_layer_neurons_weighted_sums) - np.exp(-current_layer_neurons_weighted_sums)) / \
-               (np.exp(current_layer_neurons_weighted_sums) + np.exp(-current_layer_neurons_weighted_sums))
-    elif current_layer_neurons_activation_function == "relu":
-        return current_layer_neurons_weighted_sums * (current_layer_neurons_weighted_sums > 0)
+from src.config import config
+from src.preprocessing.data_management import load_model
+from train_pipeline import layer_neurons_weighted_sum, layer_neurons_output
 
 def predict(X, theta0, theta):
-    h = [None]*config.NUM_LAYERS
+    h = [None] * config.NUM_LAYERS
     h[0] = X
 
     for l in range(1, config.NUM_LAYERS):
         z = layer_neurons_weighted_sum(h[l-1], theta0[l], theta[l])
         h[l] = layer_neurons_output(z, config.f[l])
 
-    return h[config.NUM_LAYERS-1]
+    return h[config.NUM_LAYERS - 1]
 
 def evaluate_model(X, Y, theta0, theta):
     correct_predictions = 0

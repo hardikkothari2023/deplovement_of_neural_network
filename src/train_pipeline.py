@@ -18,20 +18,7 @@ del_L_by_del_theta0 = [None]*config.NUM_LAYERS
 del_L_by_del_theta = [None]*config.NUM_LAYERS
 
 def layer_neurons_weighted_sum(previous_layer_neurons_outputs, current_layer_neurons_biases, current_layer_neurons_weights):
-    print("previous_layer_neurons_outputs shape:", previous_layer_neurons_outputs.shape)
-    print("current_layer_neurons_biases shape:", current_layer_neurons_biases.shape)
-    print("current_layer_neurons_weights shape:", current_layer_neurons_weights.shape)
-
-    previous_layer_neurons_outputs = np.array(previous_layer_neurons_outputs)
-    current_layer_neurons_biases = np.array(current_layer_neurons_biases)
-    current_layer_neurons_weights = np.array(current_layer_neurons_weights)
-
-    print("After conversion:")
-    print("previous_layer_neurons_outputs shape:", previous_layer_neurons_outputs.shape)
-    print("current_layer_neurons_biases shape:", current_layer_neurons_biases.shape)
-    print("current_layer_neurons_weights shape:", current_layer_neurons_weights.shape)
-
-    return current_layer_neurons_biases + np.matmul(previous_layer_neurons_outputs, current_layer_neurons_weights)
+      return current_layer_neurons_biases + np.matmul(previous_layer_neurons_outputs, current_layer_neurons_weights)
   
 
 def layer_neurons_output(current_layer_neurons_weighted_sums, current_layer_neurons_activation_function):
