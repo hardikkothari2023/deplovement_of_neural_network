@@ -21,7 +21,7 @@ class preprocess_data:
     
     def transform(self,X=None,y=None):
         
-        self.X = np.array(X).reshape(self.num_rows,self.num_input_feature)
+        self.X = np.array(X).reshape(self.num_rows,self.num_input_features)
         self.Y = np.array(y).reshape(self.num_rows,self.target_feature_dim)
         
         return self.X , self.Y    
