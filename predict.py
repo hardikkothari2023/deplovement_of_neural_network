@@ -7,7 +7,7 @@ from src.preprocessing.data_management import load_dataset, save_model, load_mod
 import pipeline as pl
 import pickle
 from src import trained_models
-from src import train_pipeline
+import train_pipeline
 from train_pipeline import layer_neurons_output
 from train_pipeline import layer_neurons_weighted_sum 
  
@@ -28,7 +28,7 @@ def evaluate_model(X, Y, theta0, theta):
     for i in range(total_predictions):
         X_sample = X[i].reshape(1, -1)
         prediction = predict(X_sample, theta0, theta)
-        predicted_label = 1 if prediction >= 0.5 else 0
+        predicted_label = 1 if prediction[0][0] >= 0.5 else 0
         if predicted_label == Y[i]:
             correct_predictions += 1
 
@@ -40,8 +40,8 @@ if __name__ == "__main__":
     theta0, theta = load_model('two_input_xor_nn.pkl')
 
     # XOR test data
-    X_test = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-    Y_test = np.array([0, 1, 1, 0])
+    X_test = np.array([[0, 0], [1, 1], [0, 1], [1, 0]])
+    Y_test = np.array([0,0,1,1])
 
     # Evaluate the model
     accuracy = evaluate_model(X_test, Y_test, theta0, theta)
@@ -49,7 +49,8 @@ if __name__ == "__main__":
 
     # Predict individual samples and print the results
     for i in range(X_test.shape[0]):
+        print(i)
         X_sample = X_test[i].reshape(1, -1)
         prediction = predict(X_sample, theta0, theta)
-        predicted_label = 1 if prediction >= 0.5 else 0
-        print(f"Input: {X_test[i]}, Predicted Output: {predicted_label}, True Output: {Y_test[i]}")
+        predicted_label = 1 if prediction[0][0] >= 0.5 else 0
+        print(f"Input: {X_test[i]}, Predicted Output:{predicted_label} , True Output: {Y_test[i]}")

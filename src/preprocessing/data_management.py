@@ -32,7 +32,8 @@ def load_model(file_name):
     with open(pkl_file_path,"rb") as file_handle:
         loaded_model = pickle.load(file_handle)
 
-    return loaded_model
+        #return loaded_model
+    return loaded_model["params"]["biases"],loaded_model["params"]["weights"]
 
 
     

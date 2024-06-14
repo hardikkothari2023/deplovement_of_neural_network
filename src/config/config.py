@@ -6,6 +6,7 @@ NUM_LAYERS = 3
 P = [NUM_INPUTS,2,1]
 
 f = [None, "linear","sigmoid"]
+layer_sizes = [2, 2, 1]
  
  
 LOSS_FUNCTION = "Mean Squared Error"
