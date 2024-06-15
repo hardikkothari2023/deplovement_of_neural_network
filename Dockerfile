@@ -2,16 +2,17 @@
 FROM python:3.10.14-bookworm
 
 # Set the working directory in the container
-WORKDIR /usr/app/src
+WORKDIR /usr/src/app
 
 # Copy the entire project directory into the container
 COPY . .
 
 # Install the Python dependencies
-RUN pip install  -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Define the entrypoint to run the training script and then start an interactive shell
-ENTRYPOINT ["sh", "-c", "python train_pipeline.py && tail -f /dev/null"]
+ENTRYPOINT ["sh", "-c", "python train_pipeline.py && while true; do sleep 1000; done"]
+
 
 #First Run this command "sudo docker build -t xor-model:v1 . 
 

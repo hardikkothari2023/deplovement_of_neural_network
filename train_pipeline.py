@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+
 from src.config import config
 import src.preprocessing.preprocessing as pp
 from src.preprocessing.data_management import load_dataset, save_model, load_model
@@ -7,6 +8,7 @@ import pipeline as pl
 
 z = [None] * len(config.layer_sizes)
 h = [None] * len(config.layer_sizes)
+
 del_fl_by_del_z = [None] * len(config.layer_sizes)
 del_hl_by_del_theta0 = [None] * len(config.layer_sizes)
 del_hl_by_del_theta = [None] * len(config.layer_sizes)
@@ -59,7 +61,7 @@ def run_training(tol, epsilon, max_epochs):
 
     pl.initialize_parameters()
 
-    batch_size = 3
+    batch_size = 2
     num_batches = X_train.shape[0] // batch_size
 
     while True:
@@ -111,5 +113,5 @@ def run_training(tol, epsilon, max_epochs):
             break
 
 if __name__ == "__main__":
-    run_training(1e-9, 0.0001, 10000)
+    run_training(1e-10, 0.009, 20000)
     save_model(pl.theta0, pl.theta)
